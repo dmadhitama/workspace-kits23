@@ -2,6 +2,9 @@ import torch
 import torch.nn as nn
 
 class CNNBlock(nn.Module):
+    """
+    Class representing a network of CNN blocks
+    """
     def __init__(self,
                  in_channels,
                  out_channels,
