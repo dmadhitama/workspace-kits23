@@ -14,7 +14,14 @@ class CNNBlock(nn.Module):
         super(CNNBlock, self).__init__()
 
         self.seq_block = nn.Sequential(
-            nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding, bias=False),
+            nn.Conv2d(
+                in_channels, 
+                out_channels, 
+                kernel_size, 
+                stride, 
+                padding, 
+                bias=False
+            ),
             nn.BatchNorm2d(out_channels),
             nn.ReLU(inplace=True)
         )

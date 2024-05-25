@@ -21,15 +21,25 @@ class Encoder(nn.Module):
 
         for _ in range(downhill):
             self.enc_layers += [
-                    CNNBlocks(n_conv=2, in_channels=in_channels, out_channels=out_channels, padding=padding),
+                    CNNBlocks(
+                        n_conv=2, 
+                        in_channels=in_channels, 
+                        out_channels=out_channels, 
+                        padding=padding
+                    ),
                     nn.MaxPool2d(2, 2)
                 ]
 
             in_channels = out_channels
             out_channels *= 2
         # doubling the dept of the last CNN block
-        self.enc_layers.append(CNNBlocks(n_conv=2, in_channels=in_channels,
-                                         out_channels=out_channels, padding=padding))
+        self.enc_layers.append(CNNBlocks(
+            n_conv=2, 
+            in_channels=in_channels,
+            out_channels=out_channels, 
+            padding=padding
+            )
+        )
 
     def forward(self, x):
         route_connection = []

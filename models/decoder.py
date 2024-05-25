@@ -25,9 +25,18 @@ class Decoder(nn.Module):
         for i in range(uphill):
 
             self.layers += [
-                nn.ConvTranspose2d(in_channels, out_channels, kernel_size=2, stride=2),
-                CNNBlocks(n_conv=2, in_channels=in_channels,
-                          out_channels=out_channels, padding=padding),
+                nn.ConvTranspose2d(
+                    in_channels, 
+                    out_channels, 
+                    kernel_size=2, 
+                    stride=2
+                ),
+                CNNBlocks(
+                    n_conv=2, 
+                    in_channels=in_channels,
+                    out_channels=out_channels, 
+                    padding=padding
+                ),
             ]
             in_channels //= 2
             out_channels //= 2
@@ -36,7 +45,12 @@ class Decoder(nn.Module):
         # cannot append nn.Sigmoid here because you should be later using
         # BCELoss () which will trigger the amp error "are unsafe to autocast".
         self.layers.append(
-            nn.Conv2d(in_channels, exit_channels, kernel_size=1, padding=padding),
+            nn.Conv2d(
+                in_channels, 
+                exit_channels, 
+                kernel_size=1, 
+                padding=padding
+            ),
         )
         
 
