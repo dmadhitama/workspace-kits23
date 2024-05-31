@@ -20,9 +20,9 @@ def train_loop(
             mask = masks[id_img].float().to(device)
 
             assert image.shape[-1] == image.shape[-2], \
-                f"image dimensions do not match! {image.shape[-1]} and {image.shape[-2]}"
+                f"Image shape is {image.shape}, some image dimensions do not match! {image.shape[-1]} and {image.shape[-2]}"
             assert mask.shape[-1] == mask.shape[-2], \
-                f"mask dimensions do not match! {mask.shape[-1]} and {mask.shape[-2]}"
+                f"Mask shape is {mask.shape}, mask dimensions do not match! {mask.shape[-1]} and {mask.shape[-2]}"
 
             out = model(image)
             outs.append(out)
@@ -52,9 +52,10 @@ def train_loop(
                 count += bs
         print(f"Iter {idx+1}/{len(train_dataloader)} - Current training loss: {loss_epoch:5f}")
 
-        if idx == 9:
-            outs = []
-            break
+        # comment if needed
+        # if idx == 9: # for testing short training
+        #     outs = []
+        #     break
 
     return loss_epoch
 
@@ -80,8 +81,9 @@ def evaluate_loop(
                 val_loss_epoch += loss.item()
             print(f"Iter {idx+1}/{len(val_dataloader)} - Current validation loss: {val_loss_epoch:5f}")
 
-            if idx == 9:
-                break
+            # comment if not needed
+            # if idx == 9: # for testing short training
+            #     break
 
     return val_loss_epoch
 

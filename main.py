@@ -1,6 +1,13 @@
 import torch
 import torch.nn as nn
-from torchvision.transforms import Compose, Normalize, ToTensor
+from torchvision.transforms import (
+    Compose, 
+    Normalize, 
+    ToTensor, 
+    Resize,
+    InterpolationMode
+)
+from torchvision.ops import Permute
 from utils.datasets.kits import Kits23Dataset
 from helpers.prepare_data import split_dataset
 from models.single_module_unet import UNet
@@ -15,6 +22,7 @@ if __name__ == "__main__":
     TEST_SIZE = 0.3
     IN_CHANNELS = 1
     N_CLASS = 3
+    IMAGE_SIZE = (512, 512)
 
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     EPOCHS = 10
@@ -23,7 +31,29 @@ if __name__ == "__main__":
     LOC_BATCH_SIZE = 6
     NUM_WORKERS = 0
 
-    kits_dataset = Kits23Dataset(DATASET_DIR)
+    transform = Compose(
+        [
+            ToTensor(),
+            Permute(dims=(1,2,0)), # because ToTensor change shape (C,H,W) to (H,W,C)
+            Normalize(mean=[0.5], std=[0.5]),
+            Resize(size=IMAGE_SIZE), # handle non-standard shape image e.g. (512, 632) -> (512, 512)
+        ]
+    )
+    target_transform = Compose(
+        [
+            ToTensor(),
+            Permute(dims=(1,2,0)), # because ToTensor change shape (C,H,W) to (H,W,C)
+            Resize(
+                size=IMAGE_SIZE, 
+                interpolation=InterpolationMode.NEAREST # handle interpolation result values between 0-1
+            ), # handle non-standard shape image e.g. (512, 632) -> (512, 512)
+        ]
+    )
+    kits_dataset = Kits23Dataset(
+        dataset_dir=DATASET_DIR,
+        input_transform=transform,
+        target_transform=target_transform
+    )
     train_dataloader, val_dataloader = split_dataset(
         kits_dataset, 
         test_size=TEST_SIZE,

@@ -6,9 +6,14 @@ import numpy as np
 import nibabel as nib
 
 class Kits23Dataset(Dataset):
-    def __init__(self, dataset_dir, transform=None, target_transform=None):
+    def __init__(
+            self,
+            dataset_dir,
+            input_transform=None,
+            target_transform=None
+    ):
         self.nii_gz_dict, self.labels = self._get_nii_gz_data(dataset_dir)
-        self.transform = transform
+        self.input_transform = input_transform
         self.target_transform = target_transform
 
     def __len__(self):
@@ -130,29 +135,48 @@ class Kits23Dataset(Dataset):
         images = []
         annotations = []
         for index, img_paths in enumerate(list_img_paths):
-            for img_path in img_paths:
-                # print(img_path)
-                image = nib.load(img_path).get_fdata()
-                image_min = image.min()
-                image_max = image.max()
-                image = (image - image_min) / (image_max - image_min) # Normalize image
-                # print(image.shape)
-                n_slice = image.shape[0]
-                annotation = self._get_annots(
-                    list_annot_paths[index], 
-                    image, 
-                    n_slice
-                )
-                # print(annotation.shape)
-            images.append(image)
-            annotations.append(annotation)
-        images = np.concatenate(images, axis=0)
-        annotations = np.concatenate(annotations, axis=0)
-        # print("*"*40)
 
-        if self.transform:
-            images = self.transform(images)
-            images = torch.permute(images, (1,0,2)) # because ToTensor change shape (C,H,W) to (H,W,C)
-        if self.target_transform:
-            annotations = self.target_transform(annotations)
+            if img_paths:
+                for img_path in img_paths:
+                    # print(img_path)
+                    image = nib.load(img_path).get_fdata()
+                    image_min = image.min()
+                    image_max = image.max()
+                    image = (image - image_min) / (image_max - image_min) # Normalize image
+                    # print(image.shape)
+                    n_slice = image.shape[0]
+                    annotation = self._get_annots(
+                        list_annot_paths[index], 
+                        image, 
+                        n_slice
+                    )
+                    # print(annotation.shape)
+                try:
+                    images.append(image)
+                    annotations.append(annotation)
+                except:
+                    print(f"Error append image and annotation on {img_path}. Exiting...")
+                    exit()
+                
+                if images:
+                    images = np.concatenate(images, axis=0)
+                if annotations:
+                    annotations = np.concatenate(annotations, axis=0)
+                # print("*"*40)
+
+                if self.input_transform:
+                    try:
+                        images = self.input_transform(images)
+                    except:
+                        import ipdb; ipdb.set_trace()
+                if self.target_transform:
+                    list_annotations = []
+                    for i in range(annotations.shape[-1]):
+                        temp_annotations = self.target_transform(annotations[:,:,:,i])
+                        list_annotations.append(temp_annotations.unsqueeze(3))
+                    annotations = torch.cat(list_annotations, dim=3)
+                    
+            else:
+                print("The specific path {img_path} does not exist. Skipping...")
+
         return images, annotations
