@@ -13,7 +13,8 @@ def split_dataset(
 
     dataset_train, dataset_val = torch.utils.data.random_split(
         dataset, 
-        [len_train, len_test]
+        [len_train, len_test],
+        generator=torch.Generator().manual_seed(123)
     )
     train_dataloader = torch.utils.data.DataLoader(
         dataset_train, 

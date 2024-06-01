@@ -2,12 +2,12 @@ import torch
 import os
 
 def train_loop(
-        model,
-        train_dataloader,
-        bs, # local batch size
-        optimizer,
-        criterion,
-        device,
+    model,
+    train_dataloader,
+    bs, # local batch size
+    optimizer,
+    criterion,
+    device,
 ):
     loss_epoch = 0
     model.train()
@@ -60,10 +60,10 @@ def train_loop(
     return loss_epoch
 
 def evaluate_loop(
-        model,
-        val_dataloader,
-        criterion,
-        device,
+    model,
+    val_dataloader,
+    criterion,
+    device,
 ):
     model.eval()
     val_loss_epoch = 0
@@ -87,11 +87,32 @@ def evaluate_loop(
 
     return val_loss_epoch
 
+def inference(
+    model,
+    test_dataloader,
+    device,
+):
+    model.eval()
+    with torch.no_grad():
+        for idx, (test_images, test_masks) in enumerate(test_dataloader):
+            for id_img, test_image in enumerate(test_images):
+                test_image = test_image.float().unsqueeze(0).to(device)
+                test_mask = test_masks[id_img].float().to(device)
+
+                assert test_image.shape[-1] == test_image.shape[-2], "image dimensions do not match!"
+                assert test_mask.shape[-1] == test_mask.shape[-2], "mask dimensions do not match!"
+
+                test_out = model(test_image)
+                pass
+            print(f"Iter {idx+1}/{len(test_dataloader)} - Current inference loss: {test_out:5f}")
+
+
 def save_checkpoint(
-        model, 
-        folder_path,
-        epoch,
-        filename="checkpoint"):
+    model, 
+    folder_path,
+    epoch,
+    filename="checkpoint"
+):
     filename_epoch = f"{filename}_{epoch+1}.pt"
     filename_path = os.path.join(folder_path, filename_epoch)
     if not os.path.exists(folder_path):

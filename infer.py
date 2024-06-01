@@ -8,12 +8,25 @@ from torchvision.transforms import (
     InterpolationMode
 )
 from torchvision.ops import Permute
+from helpers.parser import argsparser
+from utils.datasets.kits import Kits23Dataset
+from helpers.prepare_data import split_dataset
+from models.run import inference
 
 
 if __name__ == "__main__":
-    DATASET_DIR = "kits23/dataset/"
+    args = argsparser()
+    
+    DATASET_DIR = args.dataset_dir
     CHECKPOINT_PATH = "results/checkpoint_10.pt"
-    IMAGE_SIZE = (256, 256)
+    IMAGE_SIZE = args.image_size
+    DEVICE = args.device
+    IN_CHANNELS = args.in_channels
+    N_CLASS = args.n_class
+    TEST_SIZE = args.test_size
+    GLOB_BATCH_SIZE = args.glob_batch_size
+    NUM_WORKERS = args.num_workers
+
     transform = Compose(
         [
             ToTensor(),
@@ -22,4 +35,35 @@ if __name__ == "__main__":
             Resize(size=IMAGE_SIZE), # handle non-standard shape image e.g. (512, 632) -> (512, 512)
         ]
     )
+    target_transform = Compose(
+        [
+            ToTensor(),
+            Permute(dims=(1,2,0)), # because ToTensor change shape (C,H,W) to (H,W,C)
+            Resize(
+                size=IMAGE_SIZE, 
+                interpolation=InterpolationMode.NEAREST # handle interpolation result values between 0-1
+            ), # handle non-standard shape image e.g. (512, 632) -> (512, 512)
+        ]
+    )
+    print("=> Loading dataset...")
+    kits_dataset = Kits23Dataset(
+        dataset_dir=DATASET_DIR,
+        input_transform=transform,
+        target_transform=target_transform
+    )
+    _, val_dataloader = split_dataset(
+        kits_dataset, 
+        test_size=TEST_SIZE,
+        batch_size=GLOB_BATCH_SIZE,
+        num_workers=NUM_WORKERS
+    )
+
+    print("=> Loading model checkpoint...")
+    model = torch.load(CHECKPOINT_PATH)
+    inference(
+        model=model,
+        test_dataloader=val_dataloader,
+        device=DEVICE,
+    )
+    pass
     
