@@ -12,24 +12,27 @@ from utils.datasets.kits import Kits23Dataset
 from helpers.prepare_data import split_dataset
 from models.single_module_unet import UNet
 from models.run import train_loop, evaluate_loop, save_checkpoint
+from helpers.parser import argsparser
 
 if __name__ == "__main__":
-    DATASET_DIR = "kits23/dataset/"
-    SAVE_MODEL_PATH = "results/"
-    SAVE_IMAGES_PATH = "results/images/"
-    PAD_MIRRORING = True
+    args = argsparser()
 
-    TEST_SIZE = 0.3
-    IN_CHANNELS = 1
-    N_CLASS = 3
-    IMAGE_SIZE = (512, 512)
+    DATASET_DIR = args.dataset_dir
+    SAVE_MODEL_PATH = args.save_model_path
+    SAVE_IMAGES_PATH = args.save_images_path
+    PAD_MIRRORING = args.pad_mirroring
 
-    DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    EPOCHS = 10
-    LEARNING_RATE = 0.0001
-    GLOB_BATCH_SIZE = 1
-    LOC_BATCH_SIZE = 6
-    NUM_WORKERS = 0
+    TEST_SIZE = args.test_size
+    IN_CHANNELS = args.in_channels
+    N_CLASS = args.n_class
+    IMAGE_SIZE = args.image_size
+
+    DEVICE = args.device
+    EPOCHS = args.epochs
+    LEARNING_RATE = args.learning_rate
+    GLOB_BATCH_SIZE = args.glob_batch_size
+    LOC_BATCH_SIZE = args.loc_batch_size
+    NUM_WORKERS = args.num_workers
 
     transform = Compose(
         [
