@@ -140,9 +140,7 @@ class Kits23Dataset(Dataset):
                 for img_path in img_paths:
                     # print(img_path)
                     image = nib.load(img_path).get_fdata()
-                    image_min = image.min()
-                    image_max = image.max()
-                    image = (image - image_min) / (image_max - image_min) # Normalize image
+                    image = ((image - image.min()) / (image.max() - image.min()))*255 # Normalize image
                     # print(image.shape)
                     n_slice = image.shape[0]
                     annotation = self._get_annots(
@@ -150,7 +148,8 @@ class Kits23Dataset(Dataset):
                         image, 
                         n_slice
                     )
-                    # print(annotation.shape)
+                    # print(annotation.shape, annotation.max())
+                    annotation = (annotation - annotation.min()) / (annotation.max() - annotation.min())*255
                 try:
                     images.append(image)
                     annotations.append(annotation)
@@ -159,9 +158,9 @@ class Kits23Dataset(Dataset):
                     exit()
                 
                 if images:
-                    images = np.concatenate(images, axis=0)
+                    images = np.concatenate(images, axis=0).astype(np.uint8)
                 if annotations:
-                    annotations = np.concatenate(annotations, axis=0)
+                    annotations = np.concatenate(annotations, axis=0).astype(np.uint8)
                 # print("*"*40)
 
                 if self.input_transform:
@@ -175,6 +174,7 @@ class Kits23Dataset(Dataset):
                         temp_annotations = self.target_transform(annotations[:,:,:,i])
                         list_annotations.append(temp_annotations.unsqueeze(3))
                     annotations = torch.cat(list_annotations, dim=3)
+                # print(annotations.shape, annotations.max())
                     
             else:
                 print("The specific path {img_path} does not exist. Skipping...")

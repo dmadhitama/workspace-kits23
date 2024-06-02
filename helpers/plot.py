@@ -18,12 +18,10 @@ def plot_image_and_annotation(
     """
 
     # Create a figure and axes
-    fig, ax = plt.subplots(1, 1)
+    plt.figure(figsize=(15, 10))
     # Scale the array linearly to the range 0-1
     image = image.permute(1,2,0).numpy() # (C,H,W) -> (H,W,C)
     image = (image - np.min(image)) / (np.max(image) - np.min(image))
-    # Display the image
-    ax.imshow(image)
 
     # Define colors for each label class (you can customize these)
     # colors = {
@@ -48,26 +46,29 @@ def plot_image_and_annotation(
 
     # Overlay the mask with the corresponding color
     masked_image = np.ma.masked_where(~rgb_mask_image, image)
-    ax.imshow(
+
+    plt.subplot(2,1,1)
+    plt.imshow(image)
+    plt.imshow(
+        rgb_pred_image,
+        cmap=plt.cm.jet,
+        interpolation='none',
+        alpha=0.75
+    )
+    plt.axis("off")
+
+    plt.subplot(2,1,2)
+    plt.imshow(image)
+    plt.imshow(
         rgb_mask_image,
         cmap=plt.cm.jet,
         interpolation='none',
         alpha=0.75
     )
-
-            # if labels[idx] in pred_mask:
-            #     # Overlay the mask with the corresponding color
-            #     masked_image = np.ma.masked_where(~mask, image)
-            #     ax.imshow(
-            #         masked_image,
-            #         cmap=plt.cm.jet,
-            #         interpolation='none',
-            #         alpha=0.75
-            #     )
-
+    plt.axis("off")
     # Set plot title and remove axes
-    plt.title("Image with Segmentation Labels")
-    ax.axis('off')
+    # plt.title("Image with Segmentation Labels")
+    # ax.axis('off')
 
     # Show the plot
     # plt.show()

@@ -5,6 +5,7 @@ from torchvision.transforms import (
     InterpolationMode
 )
 from helpers.plot import plot_image_and_annotation
+from tqdm import tqdm
 
 def train_loop(
     model,
@@ -108,7 +109,8 @@ def inference(
     model.eval()
     with torch.no_grad():
         for idx, (test_images, test_masks) in enumerate(test_dataloader):
-            for id_img, test_image in enumerate(test_images):
+            print(f"Iter {idx+1}")
+            for id_img, test_image in tqdm(enumerate(test_images)):
                 test_image = test_image.float().unsqueeze(0).to(device)
                 test_mask = test_masks[id_img].float().to(device)
 
@@ -130,18 +132,17 @@ def inference(
                     [test_image, test_image, test_image], # convert to 1-channel to RGB
                     dim=0
                 )
-
-                plot_image_and_annotation(
-                    test_image,
-                    test_out,
-                    test_mask,
-                    labels,
-                    color_labels,
-                    image_save_path=f"./results/{idx+1}.png"
-                )
-                pass
-            print(f"Iter {idx+1}/{len(test_dataloader)} - Current inference loss: {test_out:5f}")
-
+                
+                if test_mask.max() > 0:
+                    plot_image_and_annotation(
+                        test_image,
+                        test_out,
+                        test_mask,
+                        labels,
+                        color_labels,
+                        image_save_path=f"./results/{idx+1}.png"
+                    )
+                    pass
 
 def save_checkpoint(
     model, 
