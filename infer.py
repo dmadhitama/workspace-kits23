@@ -27,6 +27,20 @@ if __name__ == "__main__":
     GLOB_BATCH_SIZE = args.glob_batch_size
     NUM_WORKERS = args.num_workers
 
+    THRESHOLD = 0.75
+    IMAGE_SIZE_OUT = (512, 512) # output image size (original)
+
+    labels = {
+        0: "cyst",
+        1: "kidney",
+        2: "tumor",
+    }
+    color_labels = [
+        (255, 0, 0),
+        (0, 255, 0),
+        (0, 0, 255),
+    ]
+
     transform = Compose(
         [
             ToTensor(),
@@ -64,6 +78,10 @@ if __name__ == "__main__":
         model=model,
         test_dataloader=val_dataloader,
         device=DEVICE,
+        labels=labels,
+        color_labels=color_labels,
+        threshold=THRESHOLD,
+        image_size_out=IMAGE_SIZE_OUT,
     )
     pass
     

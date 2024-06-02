@@ -1,5 +1,10 @@
 import torch
 import os
+from torchvision.transforms import (
+    Resize,
+    InterpolationMode
+)
+from helpers.plot import plot_image_and_annotation
 
 def train_loop(
     model,
@@ -81,7 +86,7 @@ def evaluate_loop(
                 val_loss_epoch += loss.item()
             print(f"Iter {idx+1}/{len(val_dataloader)} - Current validation loss: {val_loss_epoch:5f}")
 
-            # comment if not needed
+            # comment iIMAGE_SIZE_OUT,not needed
             # if idx == 9: # for testing short training
             #     break
 
@@ -91,7 +96,15 @@ def inference(
     model,
     test_dataloader,
     device,
+    labels,
+    color_labels,
+    threshold=0.75,
+    image_size_out=(512, 512)
 ):
+    resize = Resize(
+        image_size_out,
+        interpolation=InterpolationMode.NEAREST
+    )
     model.eval()
     with torch.no_grad():
         for idx, (test_images, test_masks) in enumerate(test_dataloader):
@@ -102,7 +115,30 @@ def inference(
                 assert test_image.shape[-1] == test_image.shape[-2], "image dimensions do not match!"
                 assert test_mask.shape[-1] == test_mask.shape[-2], "mask dimensions do not match!"
 
-                test_out = model(test_image)
+                test_out = torch.sigmoid(model(test_image))
+                test_out = (test_out > threshold).float()
+
+                # test_out = model(test_image)
+                # test_out = torch.nn.functional.softmax(test_out, dim=1)
+                # test_out = torch.argmax(test_out, dim=1)
+
+                # resize to original image & mask size
+                test_out = resize(test_out).squeeze(0).to("cpu")
+                test_mask = resize(test_mask).squeeze(0).to("cpu")
+                test_image = resize(test_image).squeeze(0).to("cpu")
+                test_image = torch.cat(
+                    [test_image, test_image, test_image], # convert to 1-channel to RGB
+                    dim=0
+                )
+
+                plot_image_and_annotation(
+                    test_image,
+                    test_out,
+                    test_mask,
+                    labels,
+                    color_labels,
+                    image_save_path=f"./results/{idx+1}.png"
+                )
                 pass
             print(f"Iter {idx+1}/{len(test_dataloader)} - Current inference loss: {test_out:5f}")
 
