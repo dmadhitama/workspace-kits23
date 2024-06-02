@@ -1,3 +1,6 @@
 kits23/
 .vscode
 results/
+
+# any images
+*.png
