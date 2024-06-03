@@ -13,6 +13,7 @@ from helpers.prepare_data import split_dataset
 from models.single_module_unet import UNet
 from models.run import train_loop, evaluate_loop, save_checkpoint
 from helpers.parser import argsparser
+import os
 
 if __name__ == "__main__":
     args = argsparser()
@@ -25,7 +26,7 @@ if __name__ == "__main__":
     TEST_SIZE = args.test_size
     IN_CHANNELS = args.in_channels
     N_CLASS = args.n_class
-    IMAGE_SIZE = args.image_size
+    IMAGE_SIZE = (int(args.image_size), int(args.image_size))
 
     DEVICE = args.device
     EPOCHS = args.epochs
@@ -73,27 +74,37 @@ if __name__ == "__main__":
     )
     criterion = nn.CrossEntropyLoss()
 
-    for epoch in range(EPOCHS):
-        print(f"Epoch: {epoch + 1}/{EPOCHS}")
-        loss_epoch = train_loop(
-            model=model,
-            train_dataloader=train_dataloader,
-            optimizer=optimizer,
-            criterion=criterion,
-            device=DEVICE,
-            bs=LOC_BATCH_SIZE,
-        )
-        val_loss_epoch = evaluate_loop(
-            model=model,
-            val_dataloader=val_dataloader,
-            criterion=criterion,
-            device=DEVICE,
-        )
-        save_checkpoint(
-            model=model,
-            folder_path=SAVE_MODEL_PATH,
-            epoch=epoch,
-        )
-        print(f"\n\nEpoch {epoch+1}/{EPOCHS} - Current training loss: {loss_epoch}")
-        print(f"Epoch {epoch+1}/{EPOCHS} - Current validation loss: {val_loss_epoch}\n\n")
+    if not os.path.exists(SAVE_MODEL_PATH):
+        os.makedirs(SAVE_MODEL_PATH)
+
+    with open(os.path.join(SAVE_MODEL_PATH, "train_logs.txt"), "w") as f:
+        for epoch in range(EPOCHS):
+            print(f"Epoch: {epoch + 1}/{EPOCHS}")
+            loss_epoch = train_loop(
+                model=model,
+                train_dataloader=train_dataloader,
+                optimizer=optimizer,
+                criterion=criterion,
+                device=DEVICE,
+                bs=LOC_BATCH_SIZE,
+            )
+            val_loss_epoch = evaluate_loop(
+                model=model,
+                val_dataloader=val_dataloader,
+                criterion=criterion,
+                device=DEVICE,
+            )
+            save_checkpoint(
+                model=model,
+                folder_path=SAVE_MODEL_PATH,
+                epoch=epoch,
+            )
+            train_loss_status = f"Epoch {epoch+1}/{EPOCHS} - Current training loss: {loss_epoch}"
+            val_loss_status = f"Epoch {epoch+1}/{EPOCHS} - Current validation loss: {val_loss_epoch}"
+            print(f"====================>> SUMMARY <<====================")
+            print(train_loss_status)
+            print(val_loss_status)
+            print("=======================================================")
+            f.write(train_loss_status + "\n")
+            f.write(val_loss_status + "\n")
 

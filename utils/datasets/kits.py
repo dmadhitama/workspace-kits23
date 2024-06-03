@@ -66,7 +66,7 @@ class Kits23Dataset(Dataset):
                 if key not in nii_gz_dict.keys():
                     nii_gz_dict[key] = [] # creates a new list for the new subdirectory
 
-                for file in files: # Exclude hidden files (starting with '.')
+                for file in files: # Exclude hidden files (tarting with '.')
                     if not file.startswith('.') and file.endswith(".nii.gz"):
                         nii_gz_dict[key].append(os.path.join(root, file))
 
@@ -78,7 +78,7 @@ class Kits23Dataset(Dataset):
 
                 # filter annotation files
                 nii_gz_dict[key] = self._filter_dataset(nii_gz_dict[key])
-
+        del nii_gz_dict[""] # remove empty list key
         return nii_gz_dict, sorted(labels)
         
     def _get_paths(self, nii_gz_dict_paths):
@@ -166,17 +166,35 @@ class Kits23Dataset(Dataset):
                 if self.input_transform:
                     try:
                         images = self.input_transform(images)
+                        images = images.to(torch.float16)
                     except:
                         import ipdb; ipdb.set_trace()
                 if self.target_transform:
-                    list_annotations = []
-                    for i in range(annotations.shape[-1]):
-                        temp_annotations = self.target_transform(annotations[:,:,:,i])
-                        list_annotations.append(temp_annotations.unsqueeze(3))
-                    annotations = torch.cat(list_annotations, dim=3)
+                    # list_annotations = []
+                    # for i in range(annotations.shape[-1]):
+                    #     temp_annotations = self.target_transform(annotations[:,:,:,i])
+                    #     temp_annotations = temp_annotations.to(torch.float16)
+                    #     list_annotations.append(temp_annotations.unsqueeze(3))
+                    # annotations = torch.cat(list_annotations, dim=3).to(torch.float16)
+                    # temp_annotations = None; list_annotations = None # Free memory
+
+                    annotations = torch.cat(
+                        [
+                            self.target_transform(annotations[:,:,:,0]).to(torch.float16).unsqueeze(3),
+                            self.target_transform(annotations[:,:,:,1]).to(torch.float16).unsqueeze(3),
+                            self.target_transform(annotations[:,:,:,2]).to(torch.float16).unsqueeze(3),
+                        ],
+                        dim=3
+                    )
+                    annotation = None; image = None # Free memory
+                    pass
                 # print(annotations.shape, annotations.max())
                     
             else:
                 print("The specific path {img_path} does not exist. Skipping...")
 
-        return images, annotations
+        # return images, annotations
+        if isinstance(images, list) or isinstance(annotations, list):
+            import ipdb; ipdb.set_trace()
+        else:
+            return images, annotations

@@ -18,8 +18,8 @@ def argsparser():
                         help='Number of input channels')
     parser.add_argument('--n_class', type=int, default=3,
                         help='Number of output classes')
-    parser.add_argument('--image_size', type=tuple, default=(256, 256),
-                        help='Size of the input images')
+    parser.add_argument('--image_size', type=int, default=256,
+                        help='Size of the input images, e.g. 256 -> for (256, 256) images')
     parser.add_argument('--device', type=str, default=torch.device("cuda" if torch.cuda.is_available() else "cpu"),
                         help='Device to use for training')
     parser.add_argument('--epochs', type=int, default=10,
