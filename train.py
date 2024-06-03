@@ -77,7 +77,7 @@ if __name__ == "__main__":
     if not os.path.exists(SAVE_MODEL_PATH):
         os.makedirs(SAVE_MODEL_PATH)
 
-    with open(os.path.join(SAVE_MODEL_PATH, "train_logs.txt"), "w") as f:
+    with open(os.path.join(SAVE_MODEL_PATH, "train_logs.txt"), "w") as file:
         for epoch in range(EPOCHS):
             print(f"Epoch: {epoch + 1}/{EPOCHS}")
             loss_epoch = train_loop(
@@ -105,6 +105,6 @@ if __name__ == "__main__":
             print(train_loss_status)
             print(val_loss_status)
             print("=======================================================")
-            f.write(train_loss_status + "\n")
-            f.write(val_loss_status + "\n")
+            file.write(train_loss_status + "\n")
+            file.write(val_loss_status + "\n")
 

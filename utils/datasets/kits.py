@@ -140,16 +140,16 @@ class Kits23Dataset(Dataset):
                 for img_path in img_paths:
                     # print(img_path)
                     image = nib.load(img_path).get_fdata()
-                    image = ((image - image.min()) / (image.max() - image.min()))*255 # Normalize image
-                    # print(image.shape)
+                    image = (((image - image.min()) / (image.max() - image.min()))*255).astype(np.uint8) # Normalize image
+                    # print(image.dtype, img_path, image.shape)
                     n_slice = image.shape[0]
                     annotation = self._get_annots(
                         list_annot_paths[index], 
                         image, 
                         n_slice
                     )
-                    # print(annotation.shape, annotation.max())
-                    annotation = (annotation - annotation.min()) / (annotation.max() - annotation.min())*255
+                    annotation = ((annotation - annotation.min()) / (annotation.max() - annotation.min())*255).astype(np.uint8)
+                    # print(annotation.dtype, annotation.shape, annotation.max())
                 try:
                     images.append(image)
                     annotations.append(annotation)
