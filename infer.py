@@ -20,7 +20,7 @@ if __name__ == "__main__":
     DATASET_DIR = args.dataset_dir
     CHECKPOINT_PATH = "results/checkpoint_10.pt"
     IMAGE_SIZE = args.image_size
-    DEVICE = args.device
+    DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     IN_CHANNELS = args.in_channels
     N_CLASS = args.n_class
     TEST_SIZE = args.test_size
