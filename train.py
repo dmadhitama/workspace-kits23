@@ -15,6 +15,7 @@ from models.run import train_loop, evaluate_loop, save_checkpoint
 from helpers.parser import argsparser
 import os
 import segmentation_models_pytorch as smp
+import albumentations as A
 
 
 if __name__ == "__main__":
@@ -55,10 +56,18 @@ if __name__ == "__main__":
             ), # handle non-standard shape image e.g. (512, 632) -> (512, 512)
         ]
     )
+    augment = A.Compose(
+        [
+            A.HorizontalFlip(p=0.5),
+            A.ShiftScaleRotate(shift_limit=0.2, scale_limit=0.2, rotate_limit=30, p=0.5),
+            A.RandomBrightnessContrast(brightness_limit=0.3, contrast_limit=0.3, p=0.5),
+        ]
+    )
     kits_dataset = Kits23Dataset(
         dataset_dir=DATASET_DIR,
         input_transform=transform,
-        target_transform=target_transform
+        target_transform=target_transform,
+        augmentation=augment,
     )
     train_dataloader, val_dataloader = split_dataset(
         kits_dataset, 

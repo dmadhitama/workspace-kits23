@@ -10,11 +10,14 @@ class Kits23Dataset(Dataset):
             self,
             dataset_dir,
             input_transform=None,
-            target_transform=None
+            target_transform=None,
+            augmentation=None,
+            n_augmentation=1,
     ):
         self.nii_gz_dict, self.labels = self._get_nii_gz_data(dataset_dir)
         self.input_transform = input_transform
         self.target_transform = target_transform
+        self.augmentation = augmentation
 
     def __len__(self):
         return len(self.nii_gz_dict.keys())
@@ -163,22 +166,9 @@ class Kits23Dataset(Dataset):
                     annotations = np.concatenate(annotations, axis=0).astype(np.uint8)
                 # print("*"*40)
 
-                if self.input_transform:
-                    try:
-                        images = self.input_transform(images)
-                        images = images.to(torch.float16)
-                    except:
-                        import ipdb; ipdb.set_trace()
-                if self.target_transform:
-                    # list_annotations = []
-                    # for i in range(annotations.shape[-1]):
-                    #     temp_annotations = self.target_transform(annotations[:,:,:,i])
-                    #     temp_annotations = temp_annotations.to(torch.float16)
-                    #     list_annotations.append(temp_annotations.unsqueeze(3))
-                    # annotations = torch.cat(list_annotations, dim=3).to(torch.float16)
-                    # temp_annotations = None; list_annotations = None # Free memory
-
-                    annotations = torch.cat(
+                if self.augmentation:
+                    ori_images = self.input_transform(images).to(torch.float16)
+                    ori_annotations = torch.cat(
                         [
                             self.target_transform(annotations[:,:,:,0]).to(torch.float16).unsqueeze(3),
                             self.target_transform(annotations[:,:,:,1]).to(torch.float16).unsqueeze(3),
@@ -186,9 +176,70 @@ class Kits23Dataset(Dataset):
                         ],
                         dim=3
                     )
-                    annotation = None; image = None # Free memory
-                    pass
-                # print(annotations.shape, annotations.max())
+
+                    list_augmented = [
+                        self.augmentation(image=images[i], mask=annotations[i])
+                        for i in range(images.shape[0])
+                    ]
+                    augmented_images = np.stack(
+                        [
+                            aug["image"] for aug in list_augmented
+                        ],
+                        axis=0
+                    )
+                    augmented_annotations = np.stack(
+                        [
+                            aug["mask"] for aug in list_augmented
+                        ],
+                        axis=0
+                    )
+
+                    list_augmented = []
+                    
+                    augmented_images = self.input_transform(augmented_images)
+                    augmented_images = augmented_images.to(torch.float16)
+                    augmented_annotations = torch.cat(
+                        [
+                            self.target_transform(augmented_annotations[:,:,:,0]).to(torch.float16).unsqueeze(3),
+                            self.target_transform(augmented_annotations[:,:,:,1]).to(torch.float16).unsqueeze(3),
+                            self.target_transform(augmented_annotations[:,:,:,2]).to(torch.float16).unsqueeze(3),
+                        ],
+                        dim=3
+                    )
+
+                    images = torch.cat(
+                        [ori_images, augmented_images],
+                        dim=0
+                    )
+                    annotations = torch.cat(
+                        [ori_annotations, augmented_annotations],
+                        dim=0
+                    )
+
+                    # Free memory
+                    annotation = None; image = None
+                    ori_images = None; ori_annotations = None
+                    augmented_annotations = None; augmented_images = None
+
+                else:
+                    if self.input_transform:
+                        # try:
+                        images = self.input_transform(images)
+                        images = images.to(torch.float16)
+                        # except:
+                        #     import ipdb; ipdb.set_trace()
+                    if self.target_transform:
+                        annotations = torch.cat(
+                            [
+                                self.target_transform(annotations[:,:,:,0]).to(torch.float16).unsqueeze(3),
+                                self.target_transform(annotations[:,:,:,1]).to(torch.float16).unsqueeze(3),
+                                self.target_transform(annotations[:,:,:,2]).to(torch.float16).unsqueeze(3),
+                            ],
+                            dim=3
+                        )
+                        annotation = None; image = None # Free memory
+                        pass
+                    # print(annotations.shape, annotations.max())
                     
             else:
                 print("The specific path {img_path} does not exist. Skipping...")
