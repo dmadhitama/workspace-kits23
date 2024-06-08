@@ -6,6 +6,7 @@ from torchvision.transforms import (
 )
 from helpers.plot import plot_image_and_annotation
 from tqdm import tqdm
+import numpy as np
 
 def train_loop(
     model,
@@ -15,12 +16,14 @@ def train_loop(
     criterion,
     device,
 ):
-    loss_epoch = 0
     model.train()
     outs = []
+    avg_losses = []
 
     for idx, (images, masks) in enumerate(train_dataloader):
         count = 0
+        loss_iter = 0
+        len_iter = 0
         for id_img, image in enumerate(images):
             image = image.float().unsqueeze(0).to(device)
             mask = masks[id_img].float().to(device)
@@ -50,20 +53,23 @@ def train_loop(
                 loss.backward()
                 # update the weights
                 optimizer.step()
-                loss_epoch += loss.item()
+                loss_iter += loss.item()
                 # print("loss", loss_epoch)
 
                 # empty the output list
                 outs = []
                 count += bs
-        print(f"Iter {idx+1}/{len(train_dataloader)} - Current training loss: {loss_epoch:5f}")
+                len_iter += 1
+        avg_loss = loss_iter/len_iter
+        print(f"Iter {idx+1}/{len(train_dataloader)} - Current training average loss: {avg_loss:5f}")
+        avg_losses.append(avg_loss)
 
         # comment if needed
-        # if idx == 9: # for testing short training
-        #     outs = []
-        #     break
+        if idx == 4: # for testing short training
+            outs = []
+            break
 
-    return loss_epoch
+    return np.array(avg_losses)
 
 def evaluate_loop(
     model,
@@ -71,10 +77,12 @@ def evaluate_loop(
     criterion,
     device,
 ):
+    avg_val_losses = []
     model.eval()
-    val_loss_epoch = 0
     with torch.no_grad():
         for idx, (val_images, val_masks) in enumerate(val_dataloader):
+            val_loss_iter = 0
+            len_iter = 0
             for id_img, val_image in enumerate(val_images):
                 val_image = val_image.float().unsqueeze(0).to(device)
                 val_mask = val_masks[id_img].float().to(device)
@@ -84,14 +92,16 @@ def evaluate_loop(
 
                 val_out = model(val_image)
                 loss = criterion(val_out, val_mask)
-                val_loss_epoch += loss.item()
-            print(f"Iter {idx+1}/{len(val_dataloader)} - Current validation loss: {val_loss_epoch:5f}")
-
+                val_loss_iter += loss.item()
+                len_iter += 1
+            avg_val_loss = val_loss_iter/len_iter
+            print(f"Iter {idx+1}/{len(val_dataloader)} - Current validation loss: {avg_val_loss:5f}")
+            avg_val_losses.append(avg_val_loss)
             # comment iIMAGE_SIZE_OUT,not needed
-            # if idx == 9: # for testing short training
-            #     break
+            if idx == 4: # for testing short training
+                break
 
-    return val_loss_epoch
+    return np.array(avg_val_losses)
 
 def inference(
     model,

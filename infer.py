@@ -18,7 +18,7 @@ if __name__ == "__main__":
     args = argsparser()
     
     DATASET_DIR = args.dataset_dir
-    CHECKPOINT_PATH = "results/checkpoint_10.pt"
+    CHECKPOINT_PATH = "results/exp4/checkpoint_19.pt"
     IMAGE_SIZE = args.image_size
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     IN_CHANNELS = args.in_channels
@@ -27,7 +27,7 @@ if __name__ == "__main__":
     GLOB_BATCH_SIZE = args.glob_batch_size
     NUM_WORKERS = args.num_workers
 
-    THRESHOLD = 0.75
+    THRESHOLD = 0.5
     IMAGE_SIZE_OUT = (512, 512) # output image size (original)
 
     labels = {

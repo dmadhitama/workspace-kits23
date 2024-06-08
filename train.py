@@ -94,6 +94,7 @@ if __name__ == "__main__":
         lr=LEARNING_RATE
     )
     criterion = nn.CrossEntropyLoss()
+    # criterion = nn.BCEWithLogitsLoss()
 
     if not os.path.exists(SAVE_MODEL_PATH):
         os.makedirs(SAVE_MODEL_PATH)
@@ -101,7 +102,7 @@ if __name__ == "__main__":
     file = open(os.path.join(SAVE_MODEL_PATH, "train_logs.txt"), "w")
     for epoch in range(EPOCHS):
         print(f"Epoch: {epoch + 1}/{EPOCHS}")
-        loss_epoch = train_loop(
+        avg_losses = train_loop(
             model=model,
             train_dataloader=train_dataloader,
             optimizer=optimizer,
@@ -109,7 +110,7 @@ if __name__ == "__main__":
             device=DEVICE,
             bs=LOC_BATCH_SIZE,
         )
-        val_loss_epoch = evaluate_loop(
+        avg_val_losses = evaluate_loop(
             model=model,
             val_dataloader=val_dataloader,
             criterion=criterion,
@@ -120,8 +121,8 @@ if __name__ == "__main__":
             folder_path=SAVE_MODEL_PATH,
             epoch=epoch,
         )
-        train_loss_status = f"Epoch {epoch+1}/{EPOCHS} - Current training loss: {loss_epoch}"
-        val_loss_status = f"Epoch {epoch+1}/{EPOCHS} - Current validation loss: {val_loss_epoch}"
+        train_loss_status = f"Epoch {epoch+1}/{EPOCHS} - Current training loss: {avg_losses.mean():5f}"
+        val_loss_status = f"Epoch {epoch+1}/{EPOCHS} - Current validation loss: {avg_val_losses.mean():5f}"
         print(f"====================>> SUMMARY <<====================")
         print(train_loss_status)
         print(val_loss_status)

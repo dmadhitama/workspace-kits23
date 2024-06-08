@@ -41,11 +41,10 @@ def plot_image_and_annotation(
     for idx_class, color_value in enumerate(color_labels):
         for C in range(3):
             rgb_mask_image[C][mask[idx_class] == 1] = color_value[C]
-
     rgb_mask_image = rgb_mask_image.permute(1,2,0).numpy()
 
     # Overlay the mask with the corresponding color
-    masked_image = np.ma.masked_where(~rgb_mask_image, image)
+    # masked_image = np.ma.masked_where(~rgb_mask_image, image)
 
     plt.subplot(2,1,1)
     plt.imshow(image)
