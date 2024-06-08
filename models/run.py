@@ -64,10 +64,10 @@ def train_loop(
         print(f"Iter {idx+1}/{len(train_dataloader)} - Current training average loss: {avg_loss:5f}")
         avg_losses.append(avg_loss)
 
-        # comment if needed
-        if idx == 4: # for testing short training
-            outs = []
-            break
+        # # comment if needed
+        # if idx == 4: # for testing short training
+        #     outs = []
+        #     break
 
     return np.array(avg_losses)
 
@@ -97,9 +97,9 @@ def evaluate_loop(
             avg_val_loss = val_loss_iter/len_iter
             print(f"Iter {idx+1}/{len(val_dataloader)} - Current validation loss: {avg_val_loss:5f}")
             avg_val_losses.append(avg_val_loss)
-            # comment iIMAGE_SIZE_OUT,not needed
-            if idx == 4: # for testing short training
-                break
+            # # comment if not needed
+            # if idx == 4: # for testing short training
+            #     break
 
     return np.array(avg_val_losses)
 
