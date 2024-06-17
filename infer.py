@@ -18,7 +18,7 @@ if __name__ == "__main__":
     args = argsparser()
     
     DATASET_DIR = args.dataset_dir
-    CHECKPOINT_PATH = "results/exp4/checkpoint_19.pt"
+    CHECKPOINT_PATH = "results/exp7/checkpoint_43.pt"
     IMAGE_SIZE = args.image_size
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     IN_CHANNELS = args.in_channels

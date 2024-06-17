@@ -16,6 +16,8 @@ from helpers.parser import argsparser
 import os
 import segmentation_models_pytorch as smp
 import albumentations as A
+from utils.loss import GeneralizedDiceLoss, DiceLoss
+from utils.score import DiceScore
 
 
 if __name__ == "__main__":
@@ -89,12 +91,16 @@ if __name__ == "__main__":
     #     activation='softmax',
     # ).to(DEVICE)
 
-    optimizer = torch.optim.Adam(
-        model.parameters(), 
-        lr=LEARNING_RATE
-    )
-    criterion = nn.CrossEntropyLoss()
+    # optimizer = torch.optim.Adam(
+    #     model.parameters(), 
+    #     lr=LEARNING_RATE
+    # )
+    optimizer = torch.optim.NAdam(model.parameters(), lr=LEARNING_RATE)
+
+    # criterion = nn.CrossEntropyLoss()
     # criterion = nn.BCEWithLogitsLoss()
+    criterion = GeneralizedDiceLoss(normalization='softmax')
+    dice_score = DiceScore()
 
     if not os.path.exists(SAVE_MODEL_PATH):
         os.makedirs(SAVE_MODEL_PATH)
@@ -110,22 +116,35 @@ if __name__ == "__main__":
             device=DEVICE,
             bs=LOC_BATCH_SIZE,
         )
-        avg_val_losses = evaluate_loop(
+        val_res = evaluate_loop(
             model=model,
             val_dataloader=val_dataloader,
             criterion=criterion,
             device=DEVICE,
+            score_fn=dice_score,
         )
         save_checkpoint(
             model=model,
             folder_path=SAVE_MODEL_PATH,
             epoch=epoch,
         )
+
+        if len(val_res) == 2:
+            avg_val_losses = val_res[0]
+            avg_val_scores = val_res[1]
+        else:
+            avg_val_losses = val_res
+            avg_val_scores = None
+
         train_loss_status = f"Epoch {epoch+1}/{EPOCHS} - Current training loss: {avg_losses.mean():5f}"
         val_loss_status = f"Epoch {epoch+1}/{EPOCHS} - Current validation loss: {avg_val_losses.mean():5f}"
         print(f"====================>> SUMMARY <<====================")
         print(train_loss_status)
         print(val_loss_status)
+        if avg_val_scores:
+            val_score_status = f"Epoch {epoch+1}/{EPOCHS} - Current validation score: {avg_val_scores.mean():5f}"
+            print(val_score_status)
+            file.write(val_score_status + "\n")
         print("=======================================================")
         file.write(train_loss_status + "\n")
         file.write(val_loss_status + "\n")
