@@ -25,7 +25,10 @@ def train_loop(
         count = 0
         loss_iter = 0
         len_iter = 0
-        for id_img, image in enumerate(images):
+        for id_img, image in enumerate(images):   
+            # zero the gradients
+            optimizer.zero_grad()
+            
             image = image.float().unsqueeze(0).to(device)
             mask = masks[id_img].float().to(device)
 
@@ -43,13 +46,10 @@ def train_loop(
                 # print(outs.shape)
                 # print(targets.shape)
 
-                try:
-                    loss = criterion(outs, targets)
-                except:
-                    raise ValueError ("Error nich!", outs.shape, targets.shape)
-                    
-                # zero the gradients
-                optimizer.zero_grad()
+                # try:
+                loss = criterion(outs, targets)
+                # except:
+                #     raise ValueError ("Error nich!", outs.shape, targets.shape)
                 # backpropagate the loss
                 loss.backward()
                 # update the weights
@@ -113,7 +113,7 @@ def evaluate_loop(
             if score_fn:
                 avg_val_score = val_score_iter/len_iter
                 print(f"Iter {idx+1}/{len(val_dataloader)} - Current validation score: {avg_val_score:5f}")
-                avg_val_scores.append(avg_val_score)
+                avg_val_scores.append(avg_val_score.cpu())
                 return np.array(avg_val_losses), np.array(avg_val_scores)
 
             else:

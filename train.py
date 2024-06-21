@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
     # criterion = nn.CrossEntropyLoss()
     # criterion = nn.BCEWithLogitsLoss()
-    criterion = GeneralizedDiceLoss(normalization='softmax')
+    criterion = GeneralizedDiceLoss(normalization='sigmoid')
     dice_score = DiceScore()
 
     if not os.path.exists(SAVE_MODEL_PATH):
