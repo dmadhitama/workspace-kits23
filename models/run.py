@@ -37,30 +37,33 @@ def train_loop(
             assert mask.shape[-1] == mask.shape[-2], \
                 f"Mask shape is {mask.shape}, mask dimensions do not match! {mask.shape[-1]} and {mask.shape[-2]}"
 
-            out = model(image)
-            outs.append(out)
-            
-            if len(outs) == bs or id_img + 1 == len(images):
-                outs = torch.cat(outs, dim=0).to(device)
-                targets = torch.cat(masks[count:count+bs], dim=0).float().to(device)
-                # print(outs.shape)
-                # print(targets.shape)
+            if mask.sum() > 0: 
+                # if mask contains non zero values, then training is performed
+                out = model(image)
+                outs.append(out)
+                
+                if len(outs) == bs or id_img + 1 == len(images):
+                    outs = torch.cat(outs, dim=0).to(device)
+                    targets = torch.cat(masks[count:count+bs], dim=0).float().to(device)
+                    # print(outs.shape)
+                    # print(targets.shape)
 
-                # try:
-                loss = criterion(outs, targets)
-                # except:
-                #     raise ValueError ("Error nich!", outs.shape, targets.shape)
-                # backpropagate the loss
-                loss.backward()
-                # update the weights
-                optimizer.step()
-                loss_iter += loss.item()
-                # print("loss", loss_epoch)
+                    # try:
+                    loss = criterion(outs, targets)
+                    # except:
+                    #     raise ValueError ("Error nich!", outs.shape, targets.shape)
+                    # backpropagate the loss
+                    loss.backward()
+                    # update the weights
+                    optimizer.step()
+                    loss_iter += loss.item()
+                    # print("loss", loss_epoch)
 
-                # empty the output list
-                outs = []
-                count += bs
-                len_iter += 1
+                    # empty the output list
+                    outs = []
+                    count += bs
+                    len_iter += 1
+                    
         avg_loss = loss_iter/len_iter
         print(f"Iter {idx+1}/{len(train_dataloader)} - Current training average loss: {avg_loss:5f}")
         avg_losses.append(avg_loss)

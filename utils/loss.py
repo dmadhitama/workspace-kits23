@@ -105,6 +105,9 @@ class GeneralizedDiceLoss(_AbstractDiceLoss):
         self.epsilon = epsilon
 
     def dice(self, input, target, weight):
+        if input.size() != target.size():
+            print("input size", input.size())
+            print("target size", target.size())
         assert input.size() == target.size(), "'input' and 'target' must have the same shape"
 
         input = flatten(input)
