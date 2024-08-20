@@ -1,0 +1,34 @@
+modality: CT
+dataroot: /workspace/workspace-kits23/kits23
+datalist: /workspace/workspace-kits23/exp/kits23-part2/kits23_folds-part2.json
+class_names:
+- name: kidney_and_mass
+  index:
+  - 1
+  - 2
+  - 3
+- name: mass
+  index:
+  - 2
+  - 3
+- name: tumor
+  index:
+  - 2
+sigmoid: true
+auto_scale_allowed: false
+num_epochs: 100
+resample: true
+resample_resolution:
+- 0.78125
+- 0.78125
+- 0.78125
+roi_size:
+- 64
+- 64
+- 64
+batch_size: 1
+algos: segresnet2d
+num_fold: 1
+ensemble: false
+work_dir: exp/kits23-part2
+num_workers: 4

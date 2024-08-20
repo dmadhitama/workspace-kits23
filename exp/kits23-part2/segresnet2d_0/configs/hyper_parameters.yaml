@@ -1,0 +1,79 @@
+_meta_: {}
+bundle_root: /workspace/workspace-kits23/exp/kits23-part2/segresnet2d_0
+ckpt_path: $@bundle_root + '/model'
+mlflow_tracking_uri: $@ckpt_path + '/mlruns/'
+mlflow_experiment_name: Auto3DSeg
+data_file_base_dir: /workspace/workspace-kits23/kits23
+data_list_file_path: /workspace/workspace-kits23/exp/kits23-part2/kits23_folds-part2.json
+modality: ct
+fold: 0
+input_channels: 1
+output_classes: 3
+class_names: [kidney_and_mass, mass, tumor]
+class_index:
+- [1, 2, 3]
+- [2, 3]
+- [2]
+debug: false
+ckpt_save: true
+cache_rate: null
+roi_size: [64, 64, 64]
+auto_scale_allowed: false
+auto_scale_batch: true
+auto_scale_roi: false
+auto_scale_filters: false
+quick: false
+channels_last: true
+validate_final_original_res: true
+calc_val_loss: false
+amp: true
+log_output_file: null
+cache_class_indices: null
+early_stopping_fraction: 0.001
+determ: false
+stop_on_lowacc: false
+learning_rate: 0.0002
+batch_size: 1
+num_images_per_batch: 1
+num_epochs: 600
+num_warmup_epochs: 3
+sigmoid: true
+resample: false
+resample_resolution: [0.78125, 0.78125, 0.78125]
+crop_mode: ratio
+normalize_mode: range
+intensity_bounds: [-55.673469387755105, 253.61360012755102]
+num_epochs_per_validation: null
+num_epochs_per_saving: 1
+num_workers: 4
+num_steps_per_image: null
+num_crops_per_image: 1
+loss: {_target_: DiceCELoss, include_background: true, squared_pred: true, smooth_nr: 0,
+  smooth_dr: 1.0e-05, softmax: $not @sigmoid, sigmoid: $@sigmoid, to_onehot_y: $not
+    @sigmoid, batch: true}
+optimizer: {_target_: torch.optim.AdamW, lr: '@learning_rate', weight_decay: 1.0e-05}
+network:
+  _target_: SegResNetDS
+  init_filters: 32
+  blocks_down: [1, 2, 2, 4, 4]
+  norm: BATCH
+  in_channels: '@input_channels'
+  out_channels: '@output_classes'
+  dsdepth: 2
+  spatial_dims: 2
+finetune: {enabled: false, ckpt_name: $@bundle_root + '/model/model.pt'}
+validate: {enabled: false, ckpt_name: $@bundle_root + '/model/model.pt', output_path: $@bundle_root
+    + '/prediction_validation', save_mask: false, invert: true}
+infer: {enabled: false, ckpt_name: $@bundle_root + '/model/model.pt', output_path: $@bundle_root
+    + '/prediction_' + @infer#data_list_key, data_list_key: testing}
+anisotropic_scales: false
+spacing_median: [0.7835781276226044, 0.7835781276226044, 3.0]
+spacing_lower: [0.535693359375, 0.535693359375, 0.5]
+spacing_upper: [0.9803928264975548, 0.9803928264975548, 5.0]
+image_size_mm_median: [401.19200134277344, 401.19200134277344, 390.25]
+image_size_mm_90: [486.3, 486.3, 552.4999999999999]
+image_size: [622, 622, 707]
+algos: segresnet2d
+num_fold: 1
+ensemble: false
+work_dir: exp/kits23-part2

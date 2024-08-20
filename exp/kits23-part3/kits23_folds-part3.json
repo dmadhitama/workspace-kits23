@@ -1,0 +1,528 @@
+{
+    "testing": [
+       {
+            "image": "dataset/case_00004/imaging.nii.gz",
+            "label": "dataset/case_00004/segmentation.nii.gz"
+        },
+        {
+            "image": "dataset/case_00005/imaging.nii.gz",
+            "label": "dataset/case_00005/segmentation.nii.gz"
+        },
+        {
+            "image": "dataset/case_00006/imaging.nii.gz",
+            "label": "dataset/case_00006/segmentation.nii.gz"
+        },
+        {
+            "image": "dataset/case_00011/imaging.nii.gz",
+            "label": "dataset/case_00011/segmentation.nii.gz"
+        },
+        {
+            "image": "dataset/case_00017/imaging.nii.gz",
+            "label": "dataset/case_00017/segmentation.nii.gz"
+        },
+        {
+            "image": "dataset/case_00029/imaging.nii.gz",
+            "label": "dataset/case_00029/segmentation.nii.gz"
+        },
+        {
+            "image": "dataset/case_00031/imaging.nii.gz",
+            "label": "dataset/case_00031/segmentation.nii.gz"
+        },
+        {
+            "image": "dataset/case_00034/imaging.nii.gz",
+            "label": "dataset/case_00034/segmentation.nii.gz"
+        }
+    ],
+    "training": [
+        {
+            "image": "dataset/case_00000/imaging.nii.gz",
+            "label": "dataset/case_00000/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00008/imaging.nii.gz",
+            "label": "dataset/case_00008/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00009/imaging.nii.gz",
+            "label": "dataset/case_00009/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00014/imaging.nii.gz",
+            "label": "dataset/case_00014/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00016/imaging.nii.gz",
+            "label": "dataset/case_00016/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00019/imaging.nii.gz",
+            "label": "dataset/case_00019/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00028/imaging.nii.gz",
+            "label": "dataset/case_00028/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00032/imaging.nii.gz",
+            "label": "dataset/case_00032/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00038/imaging.nii.gz",
+            "label": "dataset/case_00038/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00042/imaging.nii.gz",
+            "label": "dataset/case_00042/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00044/imaging.nii.gz",
+            "label": "dataset/case_00044/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00048/imaging.nii.gz",
+            "label": "dataset/case_00048/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00051/imaging.nii.gz",
+            "label": "dataset/case_00051/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00053/imaging.nii.gz",
+            "label": "dataset/case_00053/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00055/imaging.nii.gz",
+            "label": "dataset/case_00055/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00070/imaging.nii.gz",
+            "label": "dataset/case_00070/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00079/imaging.nii.gz",
+            "label": "dataset/case_00079/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00084/imaging.nii.gz",
+            "label": "dataset/case_00084/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00088/imaging.nii.gz",
+            "label": "dataset/case_00088/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00099/imaging.nii.gz",
+            "label": "dataset/case_00099/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00100/imaging.nii.gz",
+            "label": "dataset/case_00100/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00105/imaging.nii.gz",
+            "label": "dataset/case_00105/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00108/imaging.nii.gz",
+            "label": "dataset/case_00108/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00111/imaging.nii.gz",
+            "label": "dataset/case_00111/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00112/imaging.nii.gz",
+            "label": "dataset/case_00112/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00113/imaging.nii.gz",
+            "label": "dataset/case_00113/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00123/imaging.nii.gz",
+            "label": "dataset/case_00123/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00124/imaging.nii.gz",
+            "label": "dataset/case_00124/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00131/imaging.nii.gz",
+            "label": "dataset/case_00131/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00138/imaging.nii.gz",
+            "label": "dataset/case_00138/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00145/imaging.nii.gz",
+            "label": "dataset/case_00145/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00150/imaging.nii.gz",
+            "label": "dataset/case_00150/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00154/imaging.nii.gz",
+            "label": "dataset/case_00154/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00158/imaging.nii.gz",
+            "label": "dataset/case_00158/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00160/imaging.nii.gz",
+            "label": "dataset/case_00160/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00163/imaging.nii.gz",
+            "label": "dataset/case_00163/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00167/imaging.nii.gz",
+            "label": "dataset/case_00167/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00169/imaging.nii.gz",
+            "label": "dataset/case_00169/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00174/imaging.nii.gz",
+            "label": "dataset/case_00174/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00175/imaging.nii.gz",
+            "label": "dataset/case_00175/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00188/imaging.nii.gz",
+            "label": "dataset/case_00188/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00191/imaging.nii.gz",
+            "label": "dataset/case_00191/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00204/imaging.nii.gz",
+            "label": "dataset/case_00204/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00206/imaging.nii.gz",
+            "label": "dataset/case_00206/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00207/imaging.nii.gz",
+            "label": "dataset/case_00207/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00211/imaging.nii.gz",
+            "label": "dataset/case_00211/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00222/imaging.nii.gz",
+            "label": "dataset/case_00222/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00227/imaging.nii.gz",
+            "label": "dataset/case_00227/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00228/imaging.nii.gz",
+            "label": "dataset/case_00228/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00229/imaging.nii.gz",
+            "label": "dataset/case_00229/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00242/imaging.nii.gz",
+            "label": "dataset/case_00242/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00247/imaging.nii.gz",
+            "label": "dataset/case_00247/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00251/imaging.nii.gz",
+            "label": "dataset/case_00251/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00270/imaging.nii.gz",
+            "label": "dataset/case_00270/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00271/imaging.nii.gz",
+            "label": "dataset/case_00271/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00272/imaging.nii.gz",
+            "label": "dataset/case_00272/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00274/imaging.nii.gz",
+            "label": "dataset/case_00274/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00277/imaging.nii.gz",
+            "label": "dataset/case_00277/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00289/imaging.nii.gz",
+            "label": "dataset/case_00289/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00292/imaging.nii.gz",
+            "label": "dataset/case_00292/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00406/imaging.nii.gz",
+            "label": "dataset/case_00406/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00410/imaging.nii.gz",
+            "label": "dataset/case_00410/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00411/imaging.nii.gz",
+            "label": "dataset/case_00411/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00412/imaging.nii.gz",
+            "label": "dataset/case_00412/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00420/imaging.nii.gz",
+            "label": "dataset/case_00420/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00440/imaging.nii.gz",
+            "label": "dataset/case_00440/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00441/imaging.nii.gz",
+            "label": "dataset/case_00441/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00442/imaging.nii.gz",
+            "label": "dataset/case_00442/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00449/imaging.nii.gz",
+            "label": "dataset/case_00449/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00453/imaging.nii.gz",
+            "label": "dataset/case_00453/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00460/imaging.nii.gz",
+            "label": "dataset/case_00460/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00488/imaging.nii.gz",
+            "label": "dataset/case_00488/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00500/imaging.nii.gz",
+            "label": "dataset/case_00500/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00501/imaging.nii.gz",
+            "label": "dataset/case_00501/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00503/imaging.nii.gz",
+            "label": "dataset/case_00503/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00507/imaging.nii.gz",
+            "label": "dataset/case_00507/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00514/imaging.nii.gz",
+            "label": "dataset/case_00514/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00517/imaging.nii.gz",
+            "label": "dataset/case_00517/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00521/imaging.nii.gz",
+            "label": "dataset/case_00521/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00523/imaging.nii.gz",
+            "label": "dataset/case_00523/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00525/imaging.nii.gz",
+            "label": "dataset/case_00525/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00536/imaging.nii.gz",
+            "label": "dataset/case_00536/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00537/imaging.nii.gz",
+            "label": "dataset/case_00537/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00545/imaging.nii.gz",
+            "label": "dataset/case_00545/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00554/imaging.nii.gz",
+            "label": "dataset/case_00554/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00556/imaging.nii.gz",
+            "label": "dataset/case_00556/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00558/imaging.nii.gz",
+            "label": "dataset/case_00558/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00561/imaging.nii.gz",
+            "label": "dataset/case_00561/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00564/imaging.nii.gz",
+            "label": "dataset/case_00564/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00566/imaging.nii.gz",
+            "label": "dataset/case_00566/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00567/imaging.nii.gz",
+            "label": "dataset/case_00567/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00570/imaging.nii.gz",
+            "label": "dataset/case_00570/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00571/imaging.nii.gz",
+            "label": "dataset/case_00571/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00573/imaging.nii.gz",
+            "label": "dataset/case_00573/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00576/imaging.nii.gz",
+            "label": "dataset/case_00576/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00580/imaging.nii.gz",
+            "label": "dataset/case_00580/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00581/imaging.nii.gz",
+            "label": "dataset/case_00581/segmentation.nii.gz",
+            "fold": 1
+        },
+        {
+            "image": "dataset/case_00587/imaging.nii.gz",
+            "label": "dataset/case_00587/segmentation.nii.gz",
+            "fold": 1
+        }
+    ]
+}

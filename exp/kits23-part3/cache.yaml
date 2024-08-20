@@ -1,0 +1,2 @@
+{analyze: true, datastats: /workspace/workspace-kits23/exp/kits23-part3/datastats.yaml,
+  algo_gen: true, train: false}

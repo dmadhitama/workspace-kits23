@@ -1,0 +1,3 @@
+- {best_avg_dice_score_epoch: 9, best_avg_dice_score: 0.0877, save_time: 0.0952, time: 0.31
+    hr, train_time: 2.48s, validation_time: 778.49s, epoch_time: 780.97s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 03:15:30'}

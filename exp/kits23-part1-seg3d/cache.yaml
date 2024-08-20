@@ -1,0 +1,2 @@
+{analyze: true, datastats: /workspace/workspace-kits23/exp/kits23-part1-seg3d/datastats.yaml,
+  algo_gen: true, train: false}
