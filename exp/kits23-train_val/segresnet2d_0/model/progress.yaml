@@ -1,3 +1,57 @@
 - {best_avg_dice_score_epoch: 9, best_avg_dice_score: 0.0877, save_time: 0.0952, time: 0.31
     hr, train_time: 2.48s, validation_time: 778.49s, epoch_time: 780.97s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
   date: '2024-08-20 03:15:30'}
+- {best_avg_dice_score_epoch: 9, best_avg_dice_score: 0.0814, save_time: 0.1355, time: 0.18
+    hr, train_time: 3.71s, validation_time: 105.59s, epoch_time: 109.31s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 14:44:19'}
+- {best_avg_dice_score_epoch: 19, best_avg_dice_score: 0.1762, save_time: 0.1292,
+  time: 0.22 hr, train_time: 3.65s, validation_time: 86.17s, epoch_time: 89.82s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 14:46:24'}
+- {best_avg_dice_score_epoch: 29, best_avg_dice_score: 0.1984, save_time: 0.1177,
+  time: 0.25 hr, train_time: 3.78s, validation_time: 85.06s, epoch_time: 88.84s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 14:48:29'}
+- {best_avg_dice_score_epoch: 49, best_avg_dice_score: 0.2071, save_time: 0.1239,
+  time: 0.32 hr, train_time: 3.78s, validation_time: 85.19s, epoch_time: 88.98s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 14:52:39'}
+- {best_avg_dice_score_epoch: 89, best_avg_dice_score: 0.2396, save_time: 0.1165,
+  time: 0.46 hr, train_time: 3.69s, validation_time: 82.84s, epoch_time: 86.53s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 15:00:49'}
+- {best_avg_dice_score_epoch: 129, best_avg_dice_score: 0.2649, save_time: 0.1235,
+  time: 0.59 hr, train_time: 3.58s, validation_time: 84.10s, epoch_time: 87.68s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 15:08:54'}
+- {best_avg_dice_score_epoch: 139, best_avg_dice_score: 0.2886, save_time: 0.1233,
+  time: 0.63 hr, train_time: 3.58s, validation_time: 84.75s, epoch_time: 88.33s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 15:10:57'}
+- {best_avg_dice_score_epoch: 149, best_avg_dice_score: 0.2993, save_time: 0.1274,
+  time: 0.66 hr, train_time: 3.73s, validation_time: 85.11s, epoch_time: 88.85s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 15:13:00'}
+- {best_avg_dice_score_epoch: 168, best_avg_dice_score: 0.3562, save_time: 0.1255,
+  time: 0.73 hr, train_time: 3.77s, validation_time: 84.88s, epoch_time: 88.65s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 15:17:04'}
+- {best_avg_dice_score_epoch: 204, best_avg_dice_score: 0.3634, save_time: 0.1203,
+  time: 0.86 hr, train_time: 3.83s, validation_time: 83.94s, epoch_time: 87.77s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 15:25:06'}
+- {best_avg_dice_score_epoch: 213, best_avg_dice_score: 0.3695, save_time: 0.1239,
+  time: 0.90 hr, train_time: 3.80s, validation_time: 85.37s, epoch_time: 89.18s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 15:27:07'}
+- {best_avg_dice_score_epoch: 249, best_avg_dice_score: 0.3972, save_time: 0.1278,
+  time: 1.03 hr, train_time: 3.73s, validation_time: 84.14s, epoch_time: 87.87s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 15:35:09'}
+- {best_avg_dice_score_epoch: 258, best_avg_dice_score: 0.4153, save_time: 0.1215,
+  time: 1.06 hr, train_time: 3.63s, validation_time: 84.10s, epoch_time: 87.72s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 15:37:07'}
+- {best_avg_dice_score_epoch: 294, best_avg_dice_score: 0.4296, save_time: 0.1141,
+  time: 1.19 hr, train_time: 3.55s, validation_time: 83.20s, epoch_time: 86.75s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 15:44:53'}
+- {best_avg_dice_score_epoch: 359, best_avg_dice_score: 0.4347, save_time: 0.2120,
+  time: 1.45 hr, train_time: 3.54s, validation_time: 84.98s, epoch_time: 88.52s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 16:00:10'}
+- {best_avg_dice_score_epoch: 412, best_avg_dice_score: 0.4449, save_time: 0.2276,
+  time: 1.67 hr, train_time: 3.70s, validation_time: 83.92s, epoch_time: 87.63s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 16:13:19'}
+- {best_avg_dice_score_epoch: 466, best_avg_dice_score: 0.4545, save_time: 0.1228,
+  time: 1.91 hr, train_time: 3.57s, validation_time: 83.70s, epoch_time: 87.27s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 16:27:52'}
+- {best_avg_dice_score_epoch: 556, best_avg_dice_score: 0.4549, save_time: 0.1224,
+  time: 2.42 hr, train_time: 3.61s, validation_time: 83.42s, epoch_time: 87.04s, model: /workspace/workspace-kits23/exp/kits23-train_val/segresnet2d_0/model/model.pt,
+  date: '2024-08-20 16:58:37'}
